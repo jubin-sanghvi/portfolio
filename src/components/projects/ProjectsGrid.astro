@@ -1,0 +1,30 @@
+---
+import type { ProjectCardData } from '../../lib/github';
+import ProjectCard from './ProjectCard.astro';
+import PlaceholderProjectCard from './PlaceholderProjectCard.astro';
+import EmptyProjectsState from './EmptyProjectsState.astro';
+import { projectPlaceholders } from '../../data/projectPlaceholders';
+
+interface Props {
+  repos: ProjectCardData[];
+}
+
+const { repos } = Astro.props;
+---
+
+<div class="projects-grid">
+  {repos.map((repo) => (
+    <ProjectCard
+      name={repo.name}
+      description={repo.description}
+      topics={repo.topics}
+      homepage={repo.homepage}
+      htmlUrl={repo.htmlUrl}
+      updatedAt={repo.updatedAt}
+    />
+  ))}
+  {projectPlaceholders.map((p) => (
+    <PlaceholderProjectCard placeholder={p} />
+  ))}
+</div>
+{repos.length === 0 && <EmptyProjectsState />}

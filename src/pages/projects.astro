@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import ProjectsIntro from '../components/projects/ProjectsIntro.astro';
+import ProjectsGrid from '../components/projects/ProjectsGrid.astro';
+import { fetchGitHubRepos, filterDisplayRepos, mapRepoToProjectCard } from '../lib/github';
+
+const allRepos = await fetchGitHubRepos();
+const displayRepos = filterDisplayRepos(allRepos);
+const repos = displayRepos.map(mapRepoToProjectCard);
+---
+
+<BaseLayout title="Projects" description="Open-source projects, automation workflows, and infrastructure patterns by Jubin Sanghvi.">
+  <section class="page-section">
+    <div class="container">
+      <ProjectsIntro />
+      <ProjectsGrid repos={repos} />
+    </div>
+  </section>
+</BaseLayout>

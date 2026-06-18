@@ -1,0 +1,34 @@
+---
+const principles = [
+  {
+    title: 'Remove bottlenecks',
+    description: 'Build platforms that other teams can scale on without constant support.',
+  },
+  {
+    title: 'Multiply leverage',
+    description: 'Great leadership is measured by the growth of the team, not the output of the manager.',
+  },
+  {
+    title: 'Bridge depth and clarity',
+    description: 'Move fluently between system design and executive communication.',
+  },
+  {
+    title: 'Make adoption a discipline',
+    description: 'AI tooling and new platforms succeed through paved paths, not mandates.',
+  },
+];
+---
+
+<section class="page-section" aria-label="Leadership principles">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:var(--space-8);">How I lead</h2>
+    <div class="principles-grid">
+      {principles.map((p) => (
+        <div class="principle-card reveal">
+          <h3>{p.title}</h3>
+          <p>{p.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

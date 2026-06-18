@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import profilePhoto from '../../assets/images/profile.jpg';
+
+interface Props {
+  alt: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { alt, size = 'md' } = Astro.props;
+
+const dimensions = { sm: 80, md: 180, lg: 240 };
+const px = dimensions[size];
+---
+
+<Image
+  src={profilePhoto}
+  alt={alt}
+  width={px}
+  height={px}
+  class={`portrait ${size}`}
+/>

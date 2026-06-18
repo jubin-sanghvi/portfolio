@@ -1,0 +1,35 @@
+---
+import { buildPageTitle, buildCanonicalUrl, resolveOgImage } from '../../lib/seo';
+import { seoDefaults } from '../../data/seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noIndex?: boolean;
+}
+
+const { title, description, image, canonical, noIndex = false } = Astro.props;
+
+const resolvedTitle = buildPageTitle(title);
+const resolvedDescription = description ?? seoDefaults.description;
+const resolvedImage = resolveOgImage(image);
+const resolvedCanonical = canonical ?? buildCanonicalUrl(Astro.url.pathname);
+---
+
+<title>{resolvedTitle}</title>
+<meta name="description" content={resolvedDescription} />
+<link rel="canonical" href={resolvedCanonical} />
+<meta property="og:title" content={resolvedTitle} />
+<meta property="og:description" content={resolvedDescription} />
+<meta property="og:image" content={resolvedImage} />
+<meta property="og:url" content={resolvedCanonical} />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content={seoDefaults.twitterCard} />
+<meta name="twitter:title" content={resolvedTitle} />
+<meta name="twitter:description" content={resolvedDescription} />
+<meta name="twitter:image" content={resolvedImage} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+{noIndex && <meta name="robots" content="noindex" />}

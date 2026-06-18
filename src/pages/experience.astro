@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import SectionHeading from '../components/common/SectionHeading.astro';
+import ExperienceTimeline from '../components/experience/ExperienceTimeline.astro';
+---
+
+<BaseLayout title="Experience" description="Jubin Sanghvi's professional experience — from building data platforms to leading AI infrastructure teams at Cisco.">
+  <section class="page-section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Experience"
+        title="Where I've built"
+        description="From individual contributor to engineering manager — building data and AI platforms at scale."
+      />
+      <ExperienceTimeline />
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container" style="text-align:center;">
+      <p style="color:var(--color-text-muted);">
+        For full detail, <a href="/resume/Jubin_Sanghvi_Senior_Engineering_Manager.pdf" download="Jubin_Sanghvi_Senior_Engineering_Manager.pdf">download the resume</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import MetaHead from '../seo/MetaHead.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { getInitialThemeScript } from '../../lib/theme';
+
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/work-sans/wght.css';
+
+import '../../styles/tokens.css';
+import '../../styles/global.css';
+import '../../styles/animations.css';
+import '../../styles/components.css';
+import '../../styles/utilities.css';
+import '../../styles/print.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noIndex?: boolean;
+}
+
+const { title, description, image, noIndex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={getInitialThemeScript()} />
+    <MetaHead title={title} description={description} image={image} noIndex={noIndex} />
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

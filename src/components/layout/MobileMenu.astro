@@ -1,0 +1,61 @@
+---
+import { Icon } from 'astro-icon/components';
+import { mainNav } from '../../data/navigation';
+import { isActiveRoute } from '../../lib/routes';
+
+const currentPath = Astro.url.pathname;
+---
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+  <div class="mobile-menu-header">
+    <strong style="font-family:var(--font-display);font-size:var(--text-lg);">Menu</strong>
+    <button class="icon-btn" aria-label="Close menu" id="mobile-menu-close">
+      <Icon name="mdi:close" size={20} />
+    </button>
+  </div>
+  <nav aria-label="Mobile navigation">
+    {mainNav.map((item) => (
+      <a
+        href={item.href}
+        class={`mobile-nav-link ${isActiveRoute(currentPath, item.href) ? 'active' : ''}`}
+      >
+        {item.label}
+      </a>
+    ))}
+  </nav>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger-btn');
+  const menu = document.getElementById('mobile-menu');
+  const closeBtn = document.getElementById('mobile-menu-close');
+
+  function openMenu() {
+    menu?.classList.add('is-open');
+    menu?.setAttribute('aria-hidden', 'false');
+    hamburger?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    closeBtn?.focus();
+  }
+
+  function closeMenu() {
+    menu?.classList.remove('is-open');
+    menu?.setAttribute('aria-hidden', 'true');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    hamburger?.focus();
+  }
+
+  hamburger?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu?.classList.contains('is-open')) {
+      closeMenu();
+    }
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

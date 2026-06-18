@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import SectionHeading from '../components/common/SectionHeading.astro';
+import PortraitFrame from '../components/common/PortraitFrame.astro';
+import AboutNarrative from '../components/about/AboutNarrative.astro';
+import CTAButton from '../components/common/CTAButton.astro';
+import { siteConfig } from '../data/site';
+---
+
+<BaseLayout title="About" description="Learn about Jubin Sanghvi — Senior Engineering Manager at Cisco building AI and Data Infrastructure platforms.">
+  <section class="page-section" aria-label="About intro">
+    <div class="container">
+      <div class="about-intro reveal">
+        <PortraitFrame alt="Jubin Sanghvi" size="lg" />
+        <div>
+          <SectionHeading eyebrow="About" title="Jubin Sanghvi" description="Senior Engineering Manager building Data and AI platforms at Cisco." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AboutNarrative />
+
+  <section class="page-section" aria-label="Connect">
+    <div class="container" style="text-align:center;">
+      <h2 class="section-title" style="margin-bottom:var(--space-4);">Let's connect</h2>
+      <p style="color:var(--color-text-muted);margin-inline:auto;margin-bottom:var(--space-6);">
+        I'm always happy to talk about data infrastructure, AI tooling, or engineering leadership.
+      </p>
+      <CTAButton href={siteConfig.linkedinProfile} label="Connect on LinkedIn" variant="primary" external={true} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-intro {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+  @media (max-width: 640px) {
+    .about-intro {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

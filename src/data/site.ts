@@ -1,0 +1,15 @@
+export const siteConfig = {
+  name: 'Jubin Sanghvi',
+  shortName: 'Jubin',
+  title: 'Jubin Sanghvi | Senior Engineering Manager',
+  description: 'Senior Engineering Manager at Cisco building AI and Data Infrastructure platforms at scale.',
+  url: 'https://jubinsanghvi.com',
+  githubUsername: 'jubin-sanghvi',
+  githubProfile: 'https://github.com/jubin-sanghvi',
+  linkedinProfile: 'https://linkedin.com/in/jubinsanghvi',
+  location: 'McKinney, Texas',
+  role: 'Sr. Engineering Manager @ Cisco',
+  tagline: 'I build the foundations product and engineering orgs scale on',
+  resumePath: '/resume/Jubin_Sanghvi_Senior_Engineering_Manager.pdf',
+  resumeFilename: 'Jubin_Sanghvi_Senior_Engineering_Manager.pdf',
+};

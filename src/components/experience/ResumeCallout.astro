@@ -1,0 +1,10 @@
+---
+import CTAButton from '../common/CTAButton.astro';
+import { siteConfig } from '../../data/site';
+---
+
+<div class="resume-callout reveal">
+  <h3>Want the full story?</h3>
+  <p>Download my resume for a complete overview of my experience, skills, and achievements.</p>
+  <CTAButton href={siteConfig.resumePath} label="Download Resume" variant="primary" download={siteConfig.resumeFilename} />
+</div>

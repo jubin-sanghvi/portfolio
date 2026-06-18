@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import CTAButton from '../components/common/CTAButton.astro';
+---
+
+<BaseLayout title="Page Not Found" noIndex={true}>
+  <section class="page-section">
+    <div class="container" style="text-align:center;padding:var(--space-24) 0;">
+      <h1 style="font-size:var(--text-2xl);margin-bottom:var(--space-4);">404</h1>
+      <p style="color:var(--color-text-muted);margin-inline:auto;margin-bottom:var(--space-8);">
+        This page doesn't exist — but the rest of the site does.
+      </p>
+      <CTAButton href="/" label="Back to Home" variant="primary" />
+    </div>
+  </section>
+</BaseLayout>

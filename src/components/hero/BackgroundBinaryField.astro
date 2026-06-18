@@ -1,0 +1,48 @@
+---
+import { themeConfig } from '../../data/theme';
+
+const enabled = themeConfig.motion.binaryBackground;
+const colors = ['#111111', '#2563eb', '#16a34a', '#dc2626', '#ea580c'];
+---
+
+{enabled && (
+  <div class="binary-field" aria-hidden="true">
+    {Array.from({ length: 30 }).map(() => (
+      <span
+        class="binary-char"
+        style={`left: ${Math.random() * 100}%; animation-duration: ${12 + Math.random() * 6}s; animation-delay: ${Math.random() * 10}s; font-size: ${10 + Math.random() * 14}px; color: ${colors[Math.floor(Math.random() * colors.length)]};`}
+      >
+        {Math.random() > 0.5 ? '1' : '0'}
+      </span>
+    ))}
+  </div>
+)}
+
+<style>
+  .binary-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .binary-char {
+    position: absolute;
+    bottom: -20px;
+    font-family: var(--font-body);
+    color: var(--color-text);
+    opacity: 0.13;
+    animation: binaryDrift linear infinite;
+    user-select: none;
+  }
+  [data-theme="dark"] .binary-char {
+    opacity: 0.07;
+    color: #ffffff !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .binary-char {
+      animation: none;
+      opacity: 0.03;
+    }
+  }
+</style>

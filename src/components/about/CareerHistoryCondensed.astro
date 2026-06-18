@@ -1,0 +1,30 @@
+---
+import { careerHistory } from '../../data/careerHistory';
+import { formatDateRange } from '../../lib/utils';
+---
+
+<section class="page-section" aria-label="Earlier career">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:var(--space-8);">Earlier career</h2>
+    <div class="career-list">
+      {careerHistory.map((item) => (
+        <div class="career-item reveal">
+          <div class="career-meta">
+            <strong>{item.company}</strong>
+            <span style="font-size:var(--text-sm);color:var(--color-text-muted);">{item.role}</span>
+            <span style="font-size:var(--text-xs);color:var(--color-text-faint);">{formatDateRange(item.start, item.end)} · {item.location}</span>
+          </div>
+          <p style="color:var(--color-text-muted);font-size:var(--text-sm);">{item.summary}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .career-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+</style>

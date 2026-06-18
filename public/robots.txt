@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jubinsanghvi.com/sitemap-index.xml

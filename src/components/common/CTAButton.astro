@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  external?: boolean;
+  download?: string;
+  label: string;
+}
+
+const { href, variant = 'primary', external = false, download, label } = Astro.props;
+
+const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+const downloadAttr = download ? { download } : {};
+---
+
+<a href={href} class={`cta-btn ${variant}`} {...externalAttrs} {...downloadAttr}>
+  {label}
+</a>

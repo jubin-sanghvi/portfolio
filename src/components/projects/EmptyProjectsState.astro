@@ -1,0 +1,15 @@
+---
+import CTAButton from '../common/CTAButton.astro';
+import { siteConfig } from '../../data/site';
+---
+
+<div class="empty-state">
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-faint)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="margin-inline:auto;margin-bottom:var(--space-4);">
+    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+    <path d="M2 17l10 5 10-5" />
+    <path d="M2 12l10 5 10-5" />
+  </svg>
+  <h3>Projects are on their way</h3>
+  <p>I'm building in public. Follow along on GitHub to see what's coming.</p>
+  <CTAButton href={siteConfig.githubProfile} label="Follow on GitHub" variant="primary" external={true} />
+</div>
