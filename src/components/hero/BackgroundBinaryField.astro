@@ -2,7 +2,7 @@
 import { themeConfig } from '../../data/theme';
 
 const enabled = themeConfig.motion.binaryBackground;
-const colors = ['#111111', '#2563eb', '#16a34a', '#dc2626', '#ea580c'];
+const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
 ---
 
 {enabled && (
@@ -30,14 +30,9 @@ const colors = ['#111111', '#2563eb', '#16a34a', '#dc2626', '#ea580c'];
     position: absolute;
     bottom: -20px;
     font-family: var(--font-body);
-    color: var(--color-text);
-    opacity: 0.13;
+    opacity: 0.1;
     animation: binaryDrift linear infinite;
     user-select: none;
-  }
-  [data-theme="dark"] .binary-char {
-    opacity: 0.07;
-    color: #ffffff !important;
   }
   @media (prefers-reduced-motion: reduce) {
     .binary-char {

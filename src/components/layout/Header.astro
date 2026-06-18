@@ -1,9 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { mainNav } from '../../data/navigation';
-import { siteConfig } from '../../data/site';
 import { isActiveRoute } from '../../lib/routes';
-import ThemeToggle from './ThemeToggle.astro';
 import MobileMenu from './MobileMenu.astro';
 
 const currentPath = Astro.url.pathname;
@@ -11,64 +9,65 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header" id="site-header">
   <div class="header-inner">
-    <a href="/" class="nav-wordmark" aria-label="Jubin Sanghvi home">
+    <a href="/" class="site-title" aria-label="Jubin Sanghvi home">
       Jubin Sanghvi
     </a>
 
-    <nav class="nav-links" aria-label="Main navigation">
+    <nav class="site-nav" aria-label="Main navigation">
       {mainNav.map((item) => (
         <a
           href={item.href}
-          class={`nav-link ${isActiveRoute(currentPath, item.href) ? 'active' : ''}`}
+          class={`page-link ${isActiveRoute(currentPath, item.href) ? 'active' : ''}`}
+          {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         >
           {item.label}
         </a>
       ))}
     </nav>
 
-    <div class="header-actions">
-      <a href={siteConfig.linkedinProfile} target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="LinkedIn profile">
-        <Icon name="mdi:linkedin" size={20} />
-      </a>
-      <a href={siteConfig.githubProfile} target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="GitHub profile">
-        <Icon name="mdi:github" size={20} />
-      </a>
-      <ThemeToggle />
-      <button class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger-btn">
-        <Icon name="mdi:menu" size={20} />
-      </button>
-    </div>
+    <button class="icon-btn hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger-btn">
+      <Icon name="mdi:menu" size={20} />
+    </button>
   </div>
   <MobileMenu />
 </header>
 
-<script>
-  function initHeaderScroll() {
-    const header = document.getElementById('site-header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        header?.classList.add('scrolled');
-      } else {
-        header?.classList.remove('scrolled');
-      }
-    });
-  }
-  initHeaderScroll();
-  document.addEventListener('astro:page-load', initHeaderScroll);
-</script>
-
 <style>
-  .nav-wordmark {
-    color: var(--color-text);
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-size: var(--text-base);
+  .site-title {
+    font-size: 26px;
     font-weight: 400;
-  }
-  .nav-wordmark:hover {
-    opacity: 0.65;
+    line-height: 54px;
+    margin-bottom: 0;
+    color: #424242;
     text-decoration: none;
+  }
+  .site-title:visited {
+    color: #424242;
+  }
+  .site-title:hover {
+    color: #424242;
+    text-decoration: none;
+    opacity: 0.7;
+  }
+  .site-nav {
+    line-height: 54px;
+  }
+  .page-link {
     color: var(--color-text);
-    transition: opacity var(--transition-ui);
+    line-height: 1.5;
+    text-decoration: none;
+  }
+  .page-link:visited {
+    color: var(--color-text);
+  }
+  .page-link:not(:last-child) {
+    margin-right: 20px;
+  }
+  .page-link:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+  .page-link.active {
+    text-decoration: underline;
   }
 </style>

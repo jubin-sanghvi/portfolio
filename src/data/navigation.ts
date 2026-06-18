@@ -5,11 +5,7 @@ export type NavItem = {
 };
 
 export const mainNav: NavItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Resume', href: '/resume' },
+  { label: 'Resume', href: '/resume/Jubin_Sanghvi_Senior_Engineering_Manager.pdf', external: true },
 ];
 
-export const footerNav: NavItem[] = [];

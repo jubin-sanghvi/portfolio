@@ -1,64 +1,60 @@
 ---
+import { Image } from 'astro:assets';
+import profilePhoto from '../../assets/images/profile.jpg';
 import BackgroundBinaryField from './BackgroundBinaryField.astro';
-import PortraitFrame from '../common/PortraitFrame.astro';
-import CTAButton from '../common/CTAButton.astro';
 import { siteConfig } from '../../data/site';
 ---
 
-<section class="hero" aria-label="Introduction">
+<section class="intro" aria-label="Introduction">
   <BackgroundBinaryField />
   <div class="container" style="position:relative;z-index:1;">
-    <div class="hero-content">
-      <PortraitFrame alt="Jubin Sanghvi" size="lg" />
-      <h1 class="hero-name">{siteConfig.name}</h1>
-      <p class="hero-role">{siteConfig.role}</p>
-      <p class="hero-tagline">{siteConfig.tagline}</p>
-      <p class="hero-intro">
-        I build Data and AI platforms at scale, and I grow the teams that own them. Over 6 years at Cisco, I've led infrastructure that Product, ML/AI, Data Science, and Engineering teams depend on daily.
-      </p>
-      <div class="hero-ctas">
-        <CTAButton href="/experience" label="View Experience" variant="primary" />
-        <CTAButton href="/projects" label="View Projects" variant="secondary" />
-        <CTAButton href={siteConfig.resumePath} label="Download Resume" variant="secondary" download={siteConfig.resumeFilename} />
-        <CTAButton href={siteConfig.linkedinProfile} label="Connect on LinkedIn" variant="secondary" external={true} />
-      </div>
-    </div>
+    <Image
+      src={profilePhoto}
+      alt="Jubin Sanghvi"
+      width={240}
+      height={240}
+      style="float: right; max-width: 33%; margin: 0 0 1em 2em; border-radius: 999px"
+    />
+    <p>
+      I'm Jubin Sanghvi, a Senior Engineering Manager at <a href="https://duo.com">Cisco (Duo Security)</a>.
+      I build Data and AI platforms at scale, and I grow the teams that own them.
+    </p>
+    <p>
+      My focus is on data infrastructure and AI platform engineering. I've built event-driven and batch
+      platforms on Kafka, PySpark, and EMR, then moved into leadership to multiply leverage. Over 6+ years
+      at Cisco, I've driven $4M+ in annual savings and contributed to $146.8M in international bookings growth.
+    </p>
+    <p>
+      Today I lead AI Infrastructure at Duo Security — lakehouse modernization, ML enablement,
+      threat intelligence, and AI developer tooling. I'm comfortable going deep with engineers on
+      system design and giving senior leadership the 10,000-foot view on strategy and trade-offs.
+    </p>
+    <p>
+      I'm active on <a href={siteConfig.githubProfile}>GitHub</a>.
+      You can also find me on <a href={siteConfig.linkedinProfile}>LinkedIn</a>.
+    </p>
+    <p>
+      I enjoy building platform infrastructure and collaborating with great teams.
+      <a href={siteConfig.linkedinProfile}>Reach out</a> if you want to find a way to work together!
+    </p>
   </div>
 </section>
 
 <style>
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
+  .intro {
+    position: relative;
+    overflow: hidden;
+    padding: 30px 0;
   }
-  .hero-name {
-    font-size: var(--text-hero);
-    line-height: 1.05;
-    margin-top: var(--space-6);
+  .intro p {
+    margin-bottom: 15px;
   }
-  .hero-role {
-    font-size: var(--text-lg);
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-  .hero-tagline {
-    font-size: var(--text-lg);
-    font-family: var(--font-body);
-    font-weight: 400;
-    color: var(--color-text-muted);
-  }
-  .hero-intro {
-    font-size: var(--text-base);
-    color: var(--color-text-muted);
-    max-width: 60ch;
-    line-height: 1.7;
-  }
-  .hero-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
+  @media (max-width: 600px) {
+    .intro :global(img) {
+      float: none !important;
+      display: block;
+      margin: 0 auto 1em !important;
+      max-width: 60% !important;
+    }
   }
 </style>
