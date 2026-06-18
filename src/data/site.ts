@@ -2,7 +2,8 @@ export const siteConfig = {
   name: 'Jubin Sanghvi',
   shortName: 'Jubin',
   title: 'Jubin Sanghvi | Senior Engineering Manager',
-  description: 'Senior Engineering Manager at Cisco building AI and Data Infrastructure platforms at scale.',
+  description:
+    'Senior Engineering Manager at Cisco building AI and Data Infrastructure platforms at scale.',
   url: 'https://jubinsanghvi.com',
   githubUsername: 'jubin-sanghvi',
   githubProfile: 'https://github.com/jubin-sanghvi',

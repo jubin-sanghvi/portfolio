@@ -26,12 +26,15 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
     return [];
   }
   try {
-    const res = await fetch('https://api.github.com/users/jubin-sanghvi/repos?per_page=100&sort=updated', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-      },
-    });
+    const res = await fetch(
+      'https://api.github.com/users/jubin-sanghvi/repos?per_page=100&sort=updated',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/vnd.github+json',
+        },
+      }
+    );
     if (!res.ok) {
       console.warn(`[github.ts] GitHub API returned ${res.status}`);
       return [];
@@ -44,7 +47,7 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
 }
 
 export function filterDisplayRepos(repos: GitHubRepo[]): GitHubRepo[] {
-  return repos.filter(r => !r.fork && !r.archived);
+  return repos.filter((r) => !r.fork && !r.archived);
 }
 
 export function mapRepoToProjectCard(repo: GitHubRepo): ProjectCardData {

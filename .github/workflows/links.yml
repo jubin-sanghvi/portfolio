@@ -1,0 +1,26 @@
+name: Broken Link Check
+
+on:
+  schedule:
+    - cron: '0 8 * * 2'
+  workflow_dispatch:
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --exclude linkedin.com
+            --exclude twitter.com
+            --exclude x.com
+            './src/**/*.astro'
+            './src/**/*.ts'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

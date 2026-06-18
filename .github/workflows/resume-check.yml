@@ -1,0 +1,24 @@
+name: Resume Staleness Check
+
+on:
+  schedule:
+    - cron: '0 9 1 * *'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check resume age
+        run: |
+          RESUME_PATH="public/resume/Jubin_Sanghvi_Senior_Engineering_Manager.pdf"
+          LAST_MODIFIED=$(git log -1 --format="%ct" -- "$RESUME_PATH")
+          NOW=$(date +%s)
+          AGE_DAYS=$(( (NOW - LAST_MODIFIED) / 86400 ))
+          echo "Resume last updated $AGE_DAYS days ago"
+          if [ $AGE_DAYS -gt 180 ]; then
+            echo "::warning::Resume has not been updated in $AGE_DAYS days. Consider refreshing it."
+            exit 1
+          fi

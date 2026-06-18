@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 6 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -24,6 +26,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Security audit
+        run: npm audit --audit-level=critical
+      - name: Type check
+        run: npx astro check
       - run: npm run build
         env:
           PORTFOLIO_GITHUB_PAT: ${{ secrets.PORTFOLIO_GITHUB_PAT }}

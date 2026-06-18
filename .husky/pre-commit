@@ -1,0 +1,6 @@
+npx lint-staged
+
+if [ ! -s "CLAUDE.md" ]; then
+  echo "ERROR: CLAUDE.md is missing or empty. This file is required for Claude Code context."
+  exit 1
+fi
