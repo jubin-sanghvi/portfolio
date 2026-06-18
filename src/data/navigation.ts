@@ -6,6 +6,7 @@ export type NavItem = {
 
 export const mainNav: NavItem[] = [
   { label: 'Projects', href: '/projects' },
+  { label: 'Experience', href: '/experience' },
   { label: 'Resume', href: '/resume/Jubin_Sanghvi_Senior_Engineering_Manager.pdf', external: true },
 ];
 

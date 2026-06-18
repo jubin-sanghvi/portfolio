@@ -3,6 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import MetaHead from '../seo/MetaHead.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import BackgroundBinaryField from '../hero/BackgroundBinaryField.astro';
 
 import '../../styles/tokens.css';
 import '../../styles/global.css';
@@ -33,7 +34,7 @@ const { title, description, image, noIndex } = Astro.props;
     <ClientRouter />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <BackgroundBinaryField />
     <Header />
     <main id="main-content">
       <slot />
@@ -41,3 +42,13 @@ const { title, description, image, noIndex } = Astro.props;
     <Footer />
   </body>
 </html>
+
+<style>
+  body {
+    position: relative;
+  }
+  main {
+    position: relative;
+    z-index: 1;
+  }
+</style>

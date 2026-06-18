@@ -1,9 +1,6 @@
 ---
 import type { ProjectCardData } from '../../lib/github';
 import ProjectCard from './ProjectCard.astro';
-import PlaceholderProjectCard from './PlaceholderProjectCard.astro';
-import EmptyProjectsState from './EmptyProjectsState.astro';
-import { projectPlaceholders } from '../../data/projectPlaceholders';
 
 interface Props {
   repos: ProjectCardData[];
@@ -23,8 +20,4 @@ const { repos } = Astro.props;
       updatedAt={repo.updatedAt}
     />
   ))}
-  {projectPlaceholders.map((p) => (
-    <PlaceholderProjectCard placeholder={p} />
-  ))}
 </div>
-{repos.length === 0 && <EmptyProjectsState />}
