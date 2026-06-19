@@ -119,39 +119,6 @@
   color: var(--color-accent);
 }
 
-/* Section heading */
-.section-heading {
-  margin-bottom: var(--space-12);
-}
-
-.section-heading.center {
-  text-align: center;
-}
-
-.section-eyebrow {
-  font-size: var(--text-sm);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-accent);
-  font-weight: 600;
-  margin-bottom: var(--space-2);
-}
-
-.section-title {
-  font-size: var(--text-lg);
-  margin-bottom: var(--space-4);
-}
-
-.section-description {
-  font-size: var(--text-base);
-  color: var(--color-text-muted);
-  max-width: 60ch;
-}
-
-.section-heading.center .section-description {
-  margin-inline: auto;
-}
-
 /* CTA Button */
 .cta-btn {
   display: inline-flex;
@@ -175,16 +142,6 @@
 .cta-btn.primary:hover {
   background: var(--color-accent-hover);
   color: var(--color-text-inverse);
-}
-
-.cta-btn.secondary {
-  background: var(--color-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-}
-
-.cta-btn.secondary:hover {
-  background: var(--color-surface-offset);
 }
 
 /* Projects grid */

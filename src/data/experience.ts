@@ -9,6 +9,7 @@ export type Role = {
 
 export type CompanyEntry = {
   company: string;
+  logo?: string;
   totalDuration: string;
   roles: Role[];
 };
@@ -16,6 +17,7 @@ export type CompanyEntry = {
 export const experience: CompanyEntry[] = [
   {
     company: 'Cisco',
+    logo: '/images/logos/cisco.svg',
     totalDuration: '6 yrs 6 mos',
     roles: [
       {
@@ -49,7 +51,8 @@ export const experience: CompanyEntry[] = [
   },
   {
     company: 'Aberdeen',
-    totalDuration: '3 yrs 1 mo',
+    logo: '/images/logos/aberdeen.svg',
+    totalDuration: '3 yrs',
     roles: [
       {
         title: 'Senior Software Engineer',
@@ -64,6 +67,7 @@ export const experience: CompanyEntry[] = [
   },
   {
     company: 'Infosys',
+    logo: '/images/logos/infosys.svg',
     totalDuration: '2 yrs',
     roles: [
       {
@@ -79,6 +83,7 @@ export const experience: CompanyEntry[] = [
   },
   {
     company: 'Directi',
+    logo: '/images/logos/directi.svg',
     totalDuration: '7 mos',
     roles: [
       {

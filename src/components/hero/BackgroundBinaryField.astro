@@ -2,20 +2,11 @@
 import { themeConfig } from '../../data/theme';
 
 const enabled = themeConfig.motion.binaryBackground;
-const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
 ---
 
 {
   enabled && (
     <div class="binary-field" aria-hidden="true">
-      {Array.from({ length: 30 }).map(() => (
-        <span
-          class="binary-char"
-          style={`left: ${Math.random() * 100}%; animation-duration: ${12 + Math.random() * 6}s; animation-delay: ${Math.random() * 10}s; font-size: ${10 + Math.random() * 8}px; color: ${colors[Math.floor(Math.random() * colors.length)]};`}
-        >
-          {Math.random() > 0.5 ? '1' : '0'}
-        </span>
-      ))}
       <div class="binary-mouse-field" />
     </div>
   )
@@ -95,14 +86,6 @@ const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
     pointer-events: none;
     z-index: 0;
   }
-  .binary-char {
-    position: absolute;
-    top: -20px;
-    font-family: var(--font-body);
-    opacity: 0.1;
-    animation: binaryDrift linear infinite;
-    user-select: none;
-  }
   .binary-mouse-field {
     position: fixed;
     inset: 0;
@@ -114,11 +97,5 @@ const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
     user-select: none;
     pointer-events: none;
     animation: binaryMouseFade 1.5s ease-out forwards;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .binary-char {
-      animation: none;
-      opacity: 0.03;
-    }
   }
 </style>

@@ -2,7 +2,6 @@ export type GitHubRepo = {
   name: string;
   description: string | null;
   topics: string[];
-  homepage: string | null;
   html_url: string;
   stargazers_count: number;
   updated_at: string;
@@ -14,7 +13,6 @@ export type ProjectCardData = {
   name: string;
   description: string;
   topics: string[];
-  homepage?: string;
   htmlUrl: string;
   updatedAt: string;
 };
@@ -22,7 +20,7 @@ export type ProjectCardData = {
 export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
   const token = import.meta.env.PORTFOLIO_GITHUB_PAT;
   if (!token) {
-    console.warn('[github.ts] PORTFOLIO_GITHUB_PAT not set — skipping GitHub fetch');
+    console.warn('[github.ts] PORTFOLIO_GITHUB_PAT not set, skipping GitHub fetch');
     return [];
   }
   try {
@@ -55,7 +53,6 @@ export function mapRepoToProjectCard(repo: GitHubRepo): ProjectCardData {
     name: repo.name,
     description: repo.description ?? 'No description provided.',
     topics: repo.topics ?? [],
-    homepage: repo.homepage ?? undefined,
     htmlUrl: repo.html_url,
     updatedAt: repo.updated_at,
   };

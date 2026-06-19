@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { principles } from '../data/principles';
+---
+
+<BaseLayout title="Principles" description="Jubin Sanghvi's working principles and philosophies.">
+  <section class="page-section">
+    <div class="container">
+      <h1>Principles</h1>
+      <p>How I think about work, problems, and building things.</p>
+      {
+        principles.map((principle) => (
+          <div class="principle">
+            <h2>{principle.title}</h2>
+            <p class="principle-desc">{principle.description}</p>
+            {principle.quote && (
+              <blockquote>
+                <p>"{principle.quote.text}"</p>
+                <cite>{principle.quote.author}</cite>
+              </blockquote>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .principle {
+    margin-bottom: 3rem;
+  }
+  .principle:last-child {
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+  .principle-desc {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+  }
+  blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--space-4);
+    margin: 0;
+  }
+  blockquote p {
+    font-style: italic;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+  blockquote cite {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-style: normal;
+  }
+</style>

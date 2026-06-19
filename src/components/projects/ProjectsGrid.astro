@@ -10,14 +10,15 @@ const { repos } = Astro.props;
 ---
 
 <div class="projects-grid">
-  {repos.map((repo) => (
-    <ProjectCard
-      name={repo.name}
-      description={repo.description}
-      topics={repo.topics}
-      homepage={repo.homepage}
-      htmlUrl={repo.htmlUrl}
-      updatedAt={repo.updatedAt}
-    />
-  ))}
+  {
+    repos.map((repo) => (
+      <ProjectCard
+        name={repo.name}
+        description={repo.description}
+        topics={repo.topics}
+        htmlUrl={repo.htmlUrl}
+        updatedAt={repo.updatedAt}
+      />
+    ))
+  }
 </div>

@@ -3,7 +3,6 @@ interface Props {
   name: string;
   description: string;
   topics: string[];
-  homepage?: string;
   htmlUrl: string;
   updatedAt: string;
 }
@@ -16,7 +15,7 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="card reveal clickable-card">
+<article class="card clickable-card">
   <div class="project-card-inner">
     <h3 class="project-name">
       <a href={htmlUrl} target="_blank" rel="noopener noreferrer">{name}</a>
