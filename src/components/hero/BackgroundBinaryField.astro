@@ -5,18 +5,87 @@ const enabled = themeConfig.motion.binaryBackground;
 const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
 ---
 
-{enabled && (
-  <div class="binary-field" aria-hidden="true">
-    {Array.from({ length: 30 }).map(() => (
-      <span
-        class="binary-char"
-        style={`left: ${Math.random() * 100}%; animation-duration: ${12 + Math.random() * 6}s; animation-delay: ${Math.random() * 10}s; font-size: ${10 + Math.random() * 14}px; color: ${colors[Math.floor(Math.random() * colors.length)]};`}
-      >
-        {Math.random() > 0.5 ? '1' : '0'}
-      </span>
-    ))}
-  </div>
-)}
+{
+  enabled && (
+    <div class="binary-field" aria-hidden="true">
+      {Array.from({ length: 30 }).map(() => (
+        <span
+          class="binary-char"
+          style={`left: ${Math.random() * 100}%; animation-duration: ${12 + Math.random() * 6}s; animation-delay: ${Math.random() * 10}s; font-size: ${10 + Math.random() * 8}px; color: ${colors[Math.floor(Math.random() * colors.length)]};`}
+        >
+          {Math.random() > 0.5 ? '1' : '0'}
+        </span>
+      ))}
+      <div class="binary-mouse-field" />
+    </div>
+  )
+}
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const field = document.querySelector('.binary-mouse-field');
+    if (!field || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
+    let lastSpawn = 0;
+    let mouseX = -1;
+    let mouseY = -1;
+    let idleInterval: number | undefined;
+
+    function spawn(x: number, y: number) {
+      const now = Date.now();
+      if (now - lastSpawn < 50) return;
+      lastSpawn = now;
+
+      const span = document.createElement('span');
+      span.textContent = Math.random() > 0.5 ? '1' : '0';
+      span.className = 'binary-mouse-char';
+      const ox = (Math.random() - 0.5) * 30;
+      span.style.cssText = `left:${x + ox}px;top:${y}px;font-size:${10 + Math.random() * 14}px;color:${colors[Math.floor(Math.random() * colors.length)]};`;
+      field!.appendChild(span);
+      span.addEventListener('animationend', () => span.remove());
+    }
+
+    function startIdle() {
+      stopIdle();
+      idleInterval = window.setInterval(() => {
+        if (mouseX >= 0) spawn(mouseX, mouseY);
+      }, 200);
+    }
+
+    function stopIdle() {
+      if (idleInterval !== undefined) {
+        clearInterval(idleInterval);
+        idleInterval = undefined;
+      }
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      spawn(mouseX, mouseY);
+      startIdle();
+    });
+    document.addEventListener('mouseleave', () => {
+      mouseX = -1;
+      stopIdle();
+    });
+    document.addEventListener(
+      'touchmove',
+      (e) => {
+        const t = e.touches[0];
+        if (t) {
+          mouseX = t.clientX;
+          mouseY = t.clientY;
+          spawn(mouseX, mouseY);
+          startIdle();
+        }
+      },
+      { passive: true }
+    );
+    document.addEventListener('astro:before-preparation', () => stopIdle(), { once: true });
+  });
+</script>
 
 <style>
   .binary-field {
@@ -33,6 +102,18 @@ const colors = ['#333333', '#4183c4', '#16a34a', '#dc2626', '#ea580c'];
     opacity: 0.1;
     animation: binaryDrift linear infinite;
     user-select: none;
+  }
+  .binary-mouse-field {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+  }
+  :global(.binary-mouse-char) {
+    position: fixed;
+    font-family: var(--font-body);
+    user-select: none;
+    pointer-events: none;
+    animation: binaryMouseFade 1.5s ease-out forwards;
   }
   @media (prefers-reduced-motion: reduce) {
     .binary-char {

@@ -16,19 +16,21 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="card reveal">
+<article class="card reveal clickable-card">
   <div class="project-card-inner">
     <h3 class="project-name">
       <a href={htmlUrl} target="_blank" rel="noopener noreferrer">{name}</a>
     </h3>
     <p class="project-desc">{description}</p>
-    {topics.length > 0 && (
-      <div class="project-topics">
-        {topics.map((topic) => (
-          <span class="tag">{topic}</span>
-        ))}
-      </div>
-    )}
+    {
+      topics.length > 0 && (
+        <div class="project-topics">
+          {topics.map((topic) => (
+            <span class="tag">{topic}</span>
+          ))}
+        </div>
+      )
+    }
     <p class="project-updated">Updated {displayDate}</p>
   </div>
 </article>
@@ -47,6 +49,15 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
   }
   .project-name a:hover {
     color: var(--color-accent);
+  }
+  .clickable-card {
+    position: relative;
+    cursor: pointer;
+  }
+  .project-name a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
   }
   .project-desc {
     font-size: var(--text-sm);
