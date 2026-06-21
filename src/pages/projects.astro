@@ -1,4 +1,5 @@
 ---
+import fs from 'node:fs';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import ProjectsIntro from '../components/projects/ProjectsIntro.astro';
 import ProjectsGrid from '../components/projects/ProjectsGrid.astro';
@@ -6,10 +7,18 @@ import { fetchGitHubRepos, filterDisplayRepos, mapRepoToProjectCard } from '../l
 
 const allRepos = await fetchGitHubRepos();
 const displayRepos = filterDisplayRepos(allRepos);
-const repos = displayRepos.map(mapRepoToProjectCard);
+const repos = displayRepos.map(mapRepoToProjectCard).map((card) => ({
+  ...card,
+  image: fs.existsSync(`public/images/projects/${card.name}.png`)
+    ? `/images/projects/${card.name}.png`
+    : undefined,
+}));
 ---
 
-<BaseLayout title="Projects" description="Open-source projects, automation workflows, and infrastructure patterns by Jubin Sanghvi.">
+<BaseLayout
+  title="Projects"
+  description="Open-source projects, automation workflows, and infrastructure patterns by Jubin Sanghvi."
+>
   <section class="page-section">
     <div class="container">
       <ProjectsIntro />

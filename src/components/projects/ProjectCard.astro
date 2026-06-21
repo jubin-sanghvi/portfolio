@@ -5,9 +5,11 @@ interface Props {
   topics: string[];
   htmlUrl: string;
   updatedAt: string;
+  image?: string;
+  homepage?: string;
 }
 
-const { name, description, topics, htmlUrl, updatedAt } = Astro.props;
+const { name, description, topics, htmlUrl, updatedAt, image, homepage } = Astro.props;
 
 const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
   month: 'short',
@@ -15,11 +17,18 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="card clickable-card">
-  <div class="project-card-inner">
-    <h3 class="project-name">
+<article class="card project-card">
+  {
+    image && (
+      <div class="project-image">
+        <img src={image} alt={`Screenshot of ${name}`} loading="lazy" />
+      </div>
+    )
+  }
+  <div class="project-content">
+    <h2 class="project-name">
       <a href={htmlUrl} target="_blank" rel="noopener noreferrer">{name}</a>
-    </h3>
+    </h2>
     <p class="project-desc">{description}</p>
     {
       topics.length > 0 && (
@@ -30,46 +39,82 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
         </div>
       )
     }
+    <div class="project-links">
+      <a href={htmlUrl} target="_blank" rel="noopener noreferrer">View on GitHub</a>
+      {
+        homepage && (
+          <a href={homepage} target="_blank" rel="noopener noreferrer">
+            Live Demo &rarr;
+          </a>
+        )
+      }
+    </div>
     <p class="project-updated">Updated {displayDate}</p>
   </div>
 </article>
 
 <style>
-  .project-card-inner {
+  .project-card {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+  .project-image {
+    flex-shrink: 0;
+    width: 200px;
+  }
+  .project-image img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+  .project-content {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    height: 100%;
+    flex: 1;
   }
   .project-name a {
     color: var(--color-text);
     text-decoration: none;
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
   }
   .project-name a:hover {
     color: var(--color-accent);
   }
-  .clickable-card {
-    position: relative;
-    cursor: pointer;
-  }
-  .project-name a::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
   .project-desc {
     font-size: var(--text-sm);
     color: var(--color-text);
-    flex: 1;
+    line-height: 1.6;
   }
   .project-topics {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
   }
+  .project-links {
+    display: flex;
+    gap: var(--space-4);
+  }
+  .project-links a {
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .project-links a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
   .project-updated {
     font-size: var(--text-xs);
     color: var(--color-text-faint);
+  }
+  @media (max-width: 600px) {
+    .project-card {
+      flex-direction: column;
+    }
+    .project-image {
+      width: 100%;
+    }
   }
 </style>

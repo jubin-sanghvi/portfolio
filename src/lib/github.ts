@@ -3,6 +3,7 @@ export type GitHubRepo = {
   description: string | null;
   topics: string[];
   html_url: string;
+  homepage: string | null;
   stargazers_count: number;
   updated_at: string;
   fork: boolean;
@@ -15,6 +16,8 @@ export type ProjectCardData = {
   topics: string[];
   htmlUrl: string;
   updatedAt: string;
+  homepage?: string;
+  image?: string;
 };
 
 export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
@@ -55,5 +58,6 @@ export function mapRepoToProjectCard(repo: GitHubRepo): ProjectCardData {
     topics: repo.topics ?? [],
     htmlUrl: repo.html_url,
     updatedAt: repo.updated_at,
+    homepage: repo.homepage || undefined,
   };
 }
