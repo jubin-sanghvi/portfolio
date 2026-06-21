@@ -17,84 +17,74 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="card project-card">
+<article class="project-entry">
+  <h2 class="project-name">
+    <a href={htmlUrl} target="_blank" rel="noopener noreferrer">{name}</a>
+  </h2>
+  {image && <img class="project-image" src={image} alt={`Screenshot of ${name}`} loading="lazy" />}
+  <p class="project-desc">{description}</p>
   {
-    image && (
-      <div class="project-image">
-        <img src={image} alt={`Screenshot of ${name}`} loading="lazy" />
+    topics.length > 0 && (
+      <div class="project-topics">
+        {topics.map((topic) => (
+          <span class="tag">{topic}</span>
+        ))}
       </div>
     )
   }
-  <div class="project-content">
-    <h2 class="project-name">
-      <a href={htmlUrl} target="_blank" rel="noopener noreferrer">{name}</a>
-    </h2>
-    <p class="project-desc">{description}</p>
+  <div class="project-links">
+    <a href={htmlUrl} target="_blank" rel="noopener noreferrer">View on GitHub</a>
     {
-      topics.length > 0 && (
-        <div class="project-topics">
-          {topics.map((topic) => (
-            <span class="tag">{topic}</span>
-          ))}
-        </div>
+      homepage && (
+        <a href={homepage} target="_blank" rel="noopener noreferrer">
+          Live Demo &rarr;
+        </a>
       )
     }
-    <div class="project-links">
-      <a href={htmlUrl} target="_blank" rel="noopener noreferrer">View on GitHub</a>
-      {
-        homepage && (
-          <a href={homepage} target="_blank" rel="noopener noreferrer">
-            Live Demo &rarr;
-          </a>
-        )
-      }
-    </div>
-    <p class="project-updated">Updated {displayDate}</p>
   </div>
+  <p class="project-updated">Updated {displayDate}</p>
 </article>
 
 <style>
-  .project-card {
-    display: flex;
-    gap: var(--space-6);
-    align-items: flex-start;
+  .project-entry {
+    overflow: hidden; /* clearfix */
   }
-  .project-image {
-    flex-shrink: 0;
-    width: 200px;
-  }
-  .project-image img {
-    width: 100%;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-  }
-  .project-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    flex: 1;
+  .project-name {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
   }
   .project-name a {
-    color: var(--color-text);
+    color: var(--color-accent);
     text-decoration: none;
-    font-size: var(--text-xl);
   }
   .project-name a:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+  .project-image {
+    float: left;
+    width: 180px;
+    margin-right: var(--space-6);
+    margin-bottom: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
   }
   .project-desc {
     font-size: var(--text-sm);
     color: var(--color-text);
     line-height: 1.6;
+    margin-bottom: var(--space-3);
   }
   .project-topics {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
+    margin-bottom: var(--space-3);
   }
   .project-links {
     display: flex;
     gap: var(--space-4);
+    margin-bottom: var(--space-2);
   }
   .project-links a {
     font-size: var(--text-sm);
@@ -110,11 +100,11 @@ const displayDate = new Date(updatedAt).toLocaleDateString('en-US', {
     color: var(--color-text-faint);
   }
   @media (max-width: 600px) {
-    .project-card {
-      flex-direction: column;
-    }
     .project-image {
+      float: none;
       width: 100%;
+      margin-right: 0;
+      margin-bottom: var(--space-4);
     }
   }
 </style>
