@@ -29,9 +29,22 @@ const { title, description, image, noIndex } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
     <MetaHead title={title} description={description} image={image} noIndex={noIndex} />
     <ClientRouter />
+    {
+      import.meta.env.PUBLIC_GOATCOUNTER_SITE && (
+        <script
+          is:inline
+          data-goatcounter={`https://${import.meta.env.PUBLIC_GOATCOUNTER_SITE}.goatcounter.com/count`}
+          async
+          src="//gc.zgo.at/count.js"
+        />
+      )
+    }
   </head>
   <body>
     <BackgroundBinaryField />

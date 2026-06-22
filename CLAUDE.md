@@ -1,4 +1,10 @@
-# Portfolio — Jubin Sanghvi
+## Project-Specific Agent Rules
+
+- Build checks: `npm run build` in background bash, not subagent
+- Lighthouse audits: background bash
+- Deploy: use existing .claude/commands/deploy.md
+
+# Portfolio -- Jubin Sanghvi
 
 Personal portfolio website for Jubin Sanghvi at jubinsanghvi.com.
 

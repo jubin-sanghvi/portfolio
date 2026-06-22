@@ -33,6 +33,7 @@ jobs:
       - run: npm run build
         env:
           PORTFOLIO_GITHUB_PAT: ${{ secrets.PORTFOLIO_GITHUB_PAT }}
+          PUBLIC_GOATCOUNTER_SITE: jubinsanghvi
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

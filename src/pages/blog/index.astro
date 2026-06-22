@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const posts = await getCollection('blog');
+
+const sorted = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const byYear = sorted.reduce<Record<number, typeof sorted>>((acc, post) => {
+  const year = post.data.date.getFullYear();
+  (acc[year] ??= []).push(post);
+  return acc;
+}, {});
+
+const years = Object.keys(byYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function readingTime(body: string): number {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}
+---
+
+<BaseLayout title="Blog" description="Thoughts on engineering, AI, tooling, and building.">
+  <section class="page-section">
+    <div class="container">
+      <h1>Blog</h1>
+      <p class="blog-subtitle">Thoughts on engineering, AI, tooling, and building.</p>
+
+      {
+        years.map((year) => (
+          <div class="year-group">
+            <h2 class="year-header">{year}</h2>
+            <ul class="post-list">
+              {byYear[year].map((post) => (
+                <li class="post-entry">
+                  <div class="post-meta">
+                    <time datetime={post.data.date.toISOString()}>
+                      {formatDate(post.data.date)}
+                    </time>
+                    <span class="reading-time">{readingTime(post.body ?? '')} min read</span>
+                  </div>
+                  <a href={`/blog/${post.id}`} class="post-title">
+                    {post.data.title}
+                  </a>
+                  <p class="post-desc">{post.data.description}</p>
+                  {post.data.tags.length > 0 && (
+                    <div class="post-tags">
+                      {post.data.tags.map((tag: string) => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+  }
+
+  .year-group {
+    margin-bottom: var(--space-8);
+  }
+  .year-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .year-header {
+    font-size: var(--text-sm);
+    color: var(--color-text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-entry {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .post-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .post-meta time {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .reading-time {
+    font-size: var(--text-xs);
+    color: var(--color-text-faint);
+  }
+  .reading-time::before {
+    content: '·';
+    margin-right: var(--space-3);
+  }
+
+  .post-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.3;
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
+  .post-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: var(--space-2);
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+</style>
